@@ -1,0 +1,59 @@
+
+### **Step 4: Create Professional .gitignore**
+
+```bash
+cat > .gitignore << 'EOF'
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Robot Framework
+*.xml
+*.log
+*.html
+!reports/.gitkeep
+output.xml
+log.html
+report.html
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Jenkins
+workspace/
+.jenkins/
+
+# Test artifacts
+reports/test_results/
+reports/coverage/
+*.hex
+*.bin
+*.elf
+
+# Secrets
+*.key
+*.pem
+*.crt
+config/credentials.yaml
+.env
+
+# OS
+Thumbs.db
+Desktop.ini
+EOF
