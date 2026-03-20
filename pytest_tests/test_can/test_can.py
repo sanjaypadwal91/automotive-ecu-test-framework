@@ -16,3 +16,7 @@ class TestCANCommunication:
         """Test CAN message transmission"""
         assert True, "CAN message sent/received"
         print("✅ CAN message test passed")
+
+
+
+        #na
