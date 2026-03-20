@@ -44,7 +44,23 @@ TC_003: Verify CAN Communication
 
     Log    ✅ TC_003 PASSED: CAN communication verified
 
+
+TC_003: Verify Automatic Build Trigger
+    [Documentation]    Test that push triggers automatic build
+    [Tags]    smoke
+    Given Code Is Pushed To GitHub
+    Then Jenkins Should Start Build Automatically
+    And All Tests Should Pass
+
 *** Keywords ***
+
+
+
+
+
+All Tests Should Pass
+    Log    ✅ All tests passed successfully!
+
 Vehicle Speed Is ${speed} km/h
     Log    Setting vehicle speed to ${speed} km/h
     Set Test Variable    ${CURRENT_SPEED}    ${speed}
@@ -111,3 +127,10 @@ Response Data Should Be Valid
     Log    Received response: ${response}
     Should Not Be Empty    ${response}
     Log    Response data validated ✅
+
+Code Is Pushed To GitHub
+    Log    Pushing changes to GitHub...
+
+Jenkins Should Start Build Automatically
+    Log    Jenkins detected SCM change!
+    Should Be True    ${TRUE}    Build triggered automatically

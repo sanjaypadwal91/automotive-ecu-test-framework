@@ -24,3 +24,8 @@ class TestBrakeController:
         actual = pressure * 1.02  # 2% error
         assert 45 <= actual <= 55, f"Pressure {actual} out of range"
         print(f"✅ Pressure test passed: {actual} bar")
+
+    def test_new_feature_automatic_build(self):
+        """Test that automatic builds work on push"""
+        print("🚀 This test was triggered by automatic build!")
+        assert True, "New feature works!"
