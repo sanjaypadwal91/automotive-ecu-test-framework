@@ -1,0 +1,29 @@
+# Environment configurations
+# Different setups for various test levels
+
+environments:
+  development:
+    type: "virtual"
+    simulation_quality: "low"
+    can_interface: "virtual"
+    hil_required: false
+
+  staging:
+    type: "virtual"
+    simulation_quality: "high"
+    can_interface: "virtual"
+    hil_required: false
+
+  hil_staging:
+    type: "hardware"
+    rig_pool: "staging"
+    can_interface: "pcan"
+    hil_required: true
+    timeout: 300
+
+  hil_production:
+    type: "hardware"
+    rig_pool: "production"
+    can_interface: "kvaser"
+    hil_required: true
+    timeout: 600

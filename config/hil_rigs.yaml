@@ -1,0 +1,35 @@
+ HIL Rig Configuration
+# Used by Jenkins pipeline for hardware testing
+
+rigs:
+  - id: "hil-brake-01"
+    host: "192.168.1.100"
+    port: 5000
+    capabilities:
+      - brake_system
+      - abs_validation
+      - fault_injection
+    status: "available"
+    location: "lab-01"
+    last_calibrated: "2024-01-15"
+
+  - id: "hil-brake-02"
+    host: "192.168.1.101"
+    port: 5000
+    capabilities:
+      - brake_system
+      - abs_validation
+      - performance_testing
+    status: "available"
+    location: "lab-01"
+    last_calibrated: "2024-01-20"
+
+test_rig_pool:
+  smoke_tests: ["hil-brake-01"]
+  regression_tests: ["hil-brake-01", "hil-brake-02"]
+  certification_tests: ["hil-brake-02"]
+
+hardware_limits:
+  max_pressure: 200  # bar
+  max_speed: 250  # km/h
+  max_temperature: 120  # °C
