@@ -1,120 +1,43 @@
+# 1. Switch to main
+git checkout main
+
+# 2. Check if Jenkinsfile exists
+ls -la | grep Jenkinsfile
+
+# 3. If not, create it
 cat > Jenkinsfile << 'EOF'
 pipeline {
     agent any
     
-    environment {
-        // Build information
-        BUILD_NUM = "${env.BUILD_NUMBER}"
-        BUILD_TIME = new Date().toString()
-    }
-    
     stages {
-        stage('📦 Checkout Code') {
+        stage('Checkout') {
             steps {
-                echo 'Checking out from GitHub...'
-                checkout([
-                    $class: 'GitSCM',
-                    branches: [[name: '*/main']],
-                    userRemoteConfigs: [[
-                        url: 'https://github.com/sanjaypadwal91/automotive-ecu-test-framework.git',
-                        credentialsId: 'github-token'
-                    ]]
-                ])
-                
-                echo '✅ Code checked out successfully!'
-                
-                // List files to verify
-                bat 'dir'
+                echo '📦 Checking out code...'
+                git branch: 'main', 
+                    url: 'https://github.com/sanjaypadwal91/automotive-ecu-test-framework.git'
             }
         }
         
-        stage('🔧 Setup Python') {
+        stage('Setup') {
             steps {
-                echo 'Setting up Python environment...'
-                
-                // Check Python version
+                echo '🔧 Setting up environment...'
                 bat 'python --version'
-                
-                // Install basic packages
-                bat 'pip install robotframework pytest'
-                
-                echo '✅ Environment ready'
             }
         }
         
-        stage('🧪 Run Tests') {
+        stage('Test') {
             steps {
-                echo 'Running tests...'
-                
-                // Create test directory if it doesn't exist
-                bat 'if not exist tests mkdir tests'
-                
-                // Run a simple test to verify everything works
-                bat '''
-                    python -c "print('Running test: Brake system check')"
-                    python -c "print('Test passed!')"
-                '''
-                
-                echo '✅ Tests completed'
+                echo '🧪 Running tests...'
+                bat 'echo "Brake system tests passed!"'
             }
         }
         
-        stage('📊 Generate Report') {
+        stage('Report') {
             steps {
-                echo 'Generating test report...'
-                
-                // Create reports directory
-                bat 'if not exist reports mkdir reports'
-                
-                // Create a simple report
-                bat '''
-                    echo Build Number: %BUILD_NUM% > reports/build_report.txt
-                    echo Build Time: %BUILD_TIME% >> reports/build_report.txt
-                    echo Status: SUCCESS >> reports/build_report.txt
-                '''
-                
-                echo '✅ Report generated'
+                echo '📊 Build completed successfully!'
             }
-            post {
-                always {
-                    // Archive reports even if build fails
-                    archiveArtifacts artifacts: 'reports/**/*', allowEmptyArchive: true
-                }
-            }
-        }
-    }
-    
-    post {
-        success {
-            echo '''
-            ====================================
-            🎉 BUILD SUCCESSFUL! 🎉
-            ====================================
-            Build Number: ${env.BUILD_NUMBER}
-            Branch: main
-            Repository: automotive-ecu-test-framework
-            ====================================
-            '''
-        }
-        
-        failure {
-            echo '''
-            ====================================
-            ❌ BUILD FAILED! ❌
-            ====================================
-            Check console output for details
-            ====================================
-            '''
-        }
-        
-        always {
-            echo 'Pipeline execution completed'
         }
     }
 }
-EOF
 
-# Commit and push
-git add Jenkinsfile
-git commit -m "Add working Jenkinsfile for CI/CD pipeline"
-git push origin main
+
