@@ -8,9 +8,9 @@ pipeline {
     }
 
     stages {
-
         stage('📦 Build') {
-            steps {echo  "Buinding version $(MY_VERSION)"
+            steps {
+                echo "Building version ${MY_VERSION}"
             }
         }
 
