@@ -1,5 +1,3 @@
-@Library('my-shared-lib') _   // optional if using global lib
-
 pipeline {
     agent any
 
@@ -8,28 +6,33 @@ pipeline {
     }
 
     stages {
-        stage('📦 Build') {
+        stage('📦 Build (Maven)') {
             steps {
-                script {
-                    buildPipeline.buildApp(MY_VERSION)
-                }
+                echo "Building version ${MY_VERSION}"
+                bat "mvn clean install"
             }
         }
 
-        stage('🔧 Test') {
+        stage('🐍 Setup Python') {
             steps {
-                script {
-                    buildPipeline.runTests()
-                }
+                bat "python --version"
+                bat "pip install -r requirements.txt"
             }
         }
 
-        stage('Deploy') {
+        stage('🔧 Run Tests') {
             steps {
-                script {
-                    buildPipeline.deployApp()
-                }
+                bat "python test_script.py"
             }
+        }
+    }
+
+    post {
+        success {
+            echo "✅ Pipeline Success"
+        }
+        failure {
+            echo "❌ Pipeline Failed"
         }
     }
 }
