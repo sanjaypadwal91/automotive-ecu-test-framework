@@ -7,19 +7,19 @@ pipeline {
 
     stages {
         stage('📦 Build') {
-            steps {("Buinding")
+            steps {echo  "Buinding"
 
             }
         }
 
         stage('🔧 Test') {
-            steps {('🔧 Test')
+            steps { echo '🔧 Test'
 
             }
         }
 
         stage('Deploy') {
-            steps {('Deploy')
+            steps {echo  'Deploy'
 
             }
 
