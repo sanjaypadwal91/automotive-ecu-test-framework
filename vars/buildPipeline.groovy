@@ -1,6 +1,6 @@
 def buildApp(version) {
     echo "Building version ${version}"
-    bat "¨pip install clean install"
+    bat "pip install clean install"
 }
 
 def runPythonTests() {
