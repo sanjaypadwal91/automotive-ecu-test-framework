@@ -13,6 +13,7 @@ pipeline {
         stage('📦 Build') {
             steps {
                 echo "Building version ${MY_VERSION}"
+                bat "pyhton -m pip install --upgrade pip"
                 bat "pip install python"
             }
         }
