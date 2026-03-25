@@ -1,39 +1,31 @@
-@Library('your-shared-library') _
-
 pipeline {
     agent any
-
-    environment {
-        MY_VERSION = "1.0.1"
-    }
 
     stages {
         stage('📦 Build') {
             steps {
                 script {
-                    buildPipeline.buildApp(MY_VERSION)
+                    // This will work only if vars/buildPipeline.groovy exists
+                    echo "Testing if buildPipeline exists: ${this.hasProperty('buildPipeline')}"
+                    buildPipeline.buildApp("1.0.1")
                 }
             }
         }
 
-        stage('🧪 Tests (Parallel)') {
-            parallel {
-                stage('Python Tests') {
-                    steps {
-                        buildPipeline.runPythonTests()
-                    }
-                }
-                stage('Maven Tests') {
-                    steps {
-                        buildPipeline.runMavenTests()
-                    }
+        stage('🧪 Tests') {
+            steps {
+                script {
+                    buildPipeline.runPythonTests()
+                    buildPipeline.runMavenTests()
                 }
             }
         }
 
         stage('🚀 Deploy') {
             steps {
-                buildPipeline.deployApp()
+                script {
+                    buildPipeline.deployApp()
+                }
             }
         }
     }
