@@ -55,9 +55,6 @@ TC_003: Verify Automatic Build Trigger
 *** Keywords ***
 
 
-
-
-
 All Tests Should Pass
     Log    ✅ All tests passed successfully!
 
