@@ -1,7 +1,7 @@
 pipeline {
     agent any
     
-    environment {my_var = "Learning"
+    environment {MY_VAR = "Learning"
 
     }
 
