@@ -1,8 +1,7 @@
-@Library('your-shared-library') _   // this must match the library name
+Library('your-shared-library') _
 
 pipeline {
     agent any
-
     stages {
         stage('📦 Build') {
             steps {
@@ -11,7 +10,6 @@ pipeline {
                 }
             }
         }
-
         stage('🧪 Tests') {
             steps {
                 script {
@@ -20,7 +18,6 @@ pipeline {
                 }
             }
         }
-
         stage('🚀 Deploy') {
             steps {
                 script {
