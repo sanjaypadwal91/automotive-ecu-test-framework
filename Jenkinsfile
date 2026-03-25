@@ -1,15 +1,17 @@
-Library('your-shared-library') _
+@Library('your-shared-library') _
 
 pipeline {
     agent any
+
     stages {
         stage('📦 Build') {
             steps {
                 script {
-                    buildPipeline.buildApp("main")
+                    buildPipeline.buildApp("1.0.1")
                 }
             }
         }
+
         stage('🧪 Tests') {
             steps {
                 script {
@@ -18,6 +20,7 @@ pipeline {
                 }
             }
         }
+
         stage('🚀 Deploy') {
             steps {
                 script {
