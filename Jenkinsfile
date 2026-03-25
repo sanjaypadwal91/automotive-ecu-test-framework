@@ -13,8 +13,7 @@ pipeline {
         stage('📦 Build') {
             steps {
                 echo "Building version ${MY_VERSION}"
-                bat "mvn clean install"
-                bat  "pip install python"
+                bat "pip install python"
             }
         }
 
