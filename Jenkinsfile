@@ -29,8 +29,10 @@ pipeline {
         }
 
         stage('Deploy') {
-            steps {echo  'Deploy'
-            sh "some script ${USER} ${PASS}"
+            steps {
+            echo  'Deploy'
+
+            echo "some script ${USER} ${PASS}"
 
             }
 
