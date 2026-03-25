@@ -1,9 +1,8 @@
-
-CODE_CHANGES = getGitChanges()
 pipeline {
     agent any
     
-    environment {MY_VESRION = "1.0.1"
+    environment {
+        MY_VERSION = "1.0.1"
 
     }
 
