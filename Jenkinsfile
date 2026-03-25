@@ -1,13 +1,16 @@
+
+CODE_CHANGES = getGitChanges()
 pipeline {
     agent any
     
-    environment {MY_VAR = "Learning"
+    environment {MY_VESRION = "1.0.1"
 
     }
 
     stages {
+
         stage('📦 Build') {
-            steps {echo  "Buinding"
+            steps {echo  "Buinding version $(MY_VERSION)"
 
             }
         }

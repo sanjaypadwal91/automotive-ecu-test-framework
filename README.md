@@ -17,3 +17,37 @@ Enterprise-grade testing framework for automotive Electronic Control Units (ECUs
 ├─────────────────────────────────────────────┤
 │ ECU Simulator / HIL Rigs │
 └─────────────────────────────────────────────┘## Auto-build test Fri Mar 20 15:58:26 WEST 2026
+
+CODE_CHANGES = getGitChanges()
+pipeline {
+    agent any
+    
+    environment {MY_VAR = "Learning"
+
+    }
+
+    stages {
+        when {
+            expression {BRANCH_NAME == "dev"  &&  CODE_CHANGES == true}
+         }
+        stage('📦 Build') {
+            steps {echo  "Buinding"
+
+            }
+        }
+
+        stage('🔧 Test') {
+            steps { echo '🔧 Test'
+
+            }
+        }
+
+        stage('Deploy') {
+            steps {echo  'Deploy'
+
+            }
+
+        }
+
+    }
+}
