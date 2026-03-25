@@ -3,6 +3,9 @@ pipeline {
     
     environment {
         MY_VERSION = "1.0.1"
+        USER = "Sanjay"
+        PASS = "PASS"
+
 
     }
 
@@ -10,6 +13,7 @@ pipeline {
         stage('📦 Build') {
             steps {
                 echo "Building version ${MY_VERSION}"
+                sh " pip install python"
             }
         }
 
@@ -21,6 +25,11 @@ pipeline {
 
         stage('Deploy') {
             steps {echo  'Deploy'
+            withCredentials([usernamePassword(credentialsId: 'server_credemtioals', usernameVariable: 'USER', passwordVariable: 'PASS')])
+            {
+            sh "some script ${USER} ${PASS}"
+
+}
 
             }
 
