@@ -2,14 +2,22 @@ pipeline {
     agent any
 
     environment {
-        MY_VERSION = "1.0.2"
+        MY_VERSION = "1.0.1"
     }
 
     stages {
         stage('📦 Build') {
             steps {
                 script {
-                    buildPipeline.buildApp(MY_VERSION)
+                    // Test if buildPipeline.groovy is visible
+                    echo "Testing if buildPipeline exists: ${buildPipeline != null}"
+
+                    // Only call buildPipeline function if it exists
+                    if (buildPipeline != null) {
+                        buildPipeline.buildApp(MY_VERSION)
+                    } else {
+                        error("buildPipeline.groovy not found!")
+                    }
                 }
             }
         }
@@ -19,14 +27,18 @@ pipeline {
                 stage('Python Tests') {
                     steps {
                         script {
-                            buildPipeline.runPythonTests()
+                            if (buildPipeline != null) {
+                                buildPipeline.runPythonTests()
+                            }
                         }
                     }
                 }
                 stage('Maven Tests') {
                     steps {
                         script {
-                            buildPipeline.runMavenTests()
+                            if (buildPipeline != null) {
+                                buildPipeline.runMavenTests()
+                            }
                         }
                     }
                 }
@@ -34,23 +46,13 @@ pipeline {
         }
 
         stage('🚀 Deploy') {
-            when {
-                branch 'main'
-            }
             steps {
                 script {
-                    buildPipeline.deployApp()
+                    if (buildPipeline != null) {
+                        buildPipeline.deployApp()
+                    }
                 }
             }
-        }
-    }
-
-    post {
-        success {
-            echo "✅ Pipeline Success"
-        }
-        failure {
-            echo "❌ Pipeline Failed"
         }
     }
 }
