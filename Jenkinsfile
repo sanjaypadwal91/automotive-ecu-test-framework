@@ -1,7 +1,7 @@
 pipeline {
     agent any
     
-    environment {"Learning"
+    environment {my_var = "Learning"
 
     }
 
@@ -25,5 +25,5 @@ pipeline {
 
         }
 
-
+    }
 }
