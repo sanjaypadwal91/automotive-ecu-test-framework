@@ -1,6 +1,12 @@
 pipeline {
     agent any
-    
+
+    tools {
+        maven "Maven"
+        gradle
+        jdk
+
+}
     environment {
         MY_VERSION = "1.0.1"
         USER = "Sanjay"
