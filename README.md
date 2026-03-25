@@ -1,90 +1,140 @@
+# 📌 Project Overview
+Enterprise-grade testing framework for automotive Electronic Control Units (ECUs) with CI/CD integration.
+
+## 🎯 Key Features
+- **Multi-layer Testing**: Unit, Integration, HIL, Performance
+- **Automated CI/CD**: Jenkins pipeline with parallel execution
+- **Hardware Integration**: Support for HIL rigs and real ECUs
+- **Comprehensive Reporting**: HTML, JUnit, Allure reports
+- **ISO 26262 Compliance**: Safety-critical testing standards
+
+## 🏗️ Architecture
+
+─────────────────────────────────────────────┐
+│ Jenkins CI/CD Pipeline │
+├─────────────────────────────────────────────┤
+│ Robot Framework │ Pytest │ HIL Tests │
+├─────────────────────────────────────────────┤
+│ ECU Simulator / HIL Rigs │
+└─────────────────────────────────────────────┘## Auto-build test Fri Mar 20 15:58:26 WEST 2026
+
+CODE_CHANGES = getGitChanges()
 pipeline {
     agent any
     
-    // Environment variables available to all stages
-    environment {
-        APP_NAME = 'myapp'
-        BUILD_TIME = sh(script: 'date', returnStdout: true).trim()
+    environment {MY_VAR = "Learning"
+
     }
-    
+
     stages {
-        stage('Setup') {
-            steps {
-                script {
-                    echo "Building ${APP_NAME}"
-                    echo "Started at: ${BUILD_TIME}"
-                    
-                    // Create a build directory
-                    sh 'mkdir -p build'
-                }
+        when {
+            expression {BRANCH_NAME == "dev"  &&  CODE_CHANGES == true}
+         }
+        stage('📦 Build') {
+            steps {echo  "Buinding"
+
             }
         }
-        
-        stage('Build') {
-            steps {
-                script {
-                    // Simulate building an app
-                    echo "Compiling code..."
-                    
-                    // Create a simple file as if we built something
-                    writeFile file: 'build/app.jar', text: 'This is a fake JAR file'
-                    
-                    // Check if build succeeded
-                    if (fileExists('build/app.jar')) {
-                        echo "✅ Build successful!"
-                    } else {
-                        error "❌ Build failed!"
-                    }
-                }
+
+        stage('🔧 Test') {
+            steps { echo '🔧 Test'
+
             }
         }
-        
-        stage('Test') {
-            steps {
-                script {
-                    echo "Running tests..."
-                    
-                    def tests = ['unit tests', 'integration tests', 'security tests']
-                    
-                    tests.each { test ->
-                        echo "Running ${test}..."
-                        // Simulate test execution
-                        sleep(1)  // Wait 1 second
-                    }
-                    
-                    echo "✅ All tests passed!"
-                }
-            }
-        }
-        
+
         stage('Deploy') {
-            when {
-                // Only run this stage on the main branch
-                branch 'main'
+            steps {echo  'Deploy'
+
             }
-            steps {
-                script {
-                    // Ask for confirmation before deploying
-                    def deploy = input(
-                        message: "Deploy to production?",
-                        ok: "Yes, deploy it!",
-                        parameters: [string(defaultValue: 'prod', description: 'Environment', name: 'ENV')]
-                    )
-                    
-                    echo "Deploying to ${deploy}..."
-                    echo "Deployment complete!"
-                }
-            }
+
         }
+
     }
+}
+
+
+
+
+
+
+
+
+pipeline {
+    agent any
     
-    // This runs after all stages
-    post {
-        success {
-            echo "🎉 Pipeline completed successfully!"
+    environment {
+        MY_VERSION = "1.0.1"
+
+
+    }
+
+    stages {
+        stage('📦 Build') {
+            steps {
+                echo "Building version ${MY_VERSION}"
+            }
         }
-        failure {
-            echo "❌ Pipeline failed! Check the logs above."
+
+        stage('🔧 Test') {
+            steps { echo '🔧 Test'
+
+            }
         }
+
+        stage('Deploy') {
+            steps {echo  'Deploy'
+            withCredentials([usernamePassword(credentialsId: 'server_credemtioals', usernameVariable: 'USER', passwordVariable: 'PASS')])
+            {
+            sh "some script ${USER} ${PASS}"
+
+}
+
+            }
+
+        }
+
+    }
+}
+
+
+
+
+
+pipeline {
+    agent any
+
+    environment {
+        MY_VERSION = "1.0.1"
+        USER = "Sanjay"
+        PASS = "PASS"
+
+
+    }
+
+    stages {
+        stage('📦 Build') {
+            steps {
+                echo "Building version ${MY_VERSION}"
+                bat "python  -m pip install --upgrade pip"
+                bat "pip install python"
+            }
+        }
+
+        stage('🔧 Test') {
+            steps { echo '🔧 Test'
+
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+            echo  'Deploy'
+
+            echo "some script ${USER} ${PASS}"
+
+            }
+
+        }
+
     }
 }
