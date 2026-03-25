@@ -1,3 +1,5 @@
+@Library('my-shared-lib') _   // optional if using global lib
+
 pipeline {
     agent any
 
@@ -8,27 +10,26 @@ pipeline {
     stages {
         stage('📦 Build') {
             steps {
-                echo "Building version ${MY_VERSION}"
-                bat "echo Build running"
+                script {
+                    buildPipeline.buildApp(MY_VERSION)
+                }
             }
         }
 
         stage('🔧 Test') {
             steps {
-                bat "echo Running tests"
+                script {
+                    buildPipeline.runTests()
+                }
             }
         }
 
         stage('Deploy') {
             steps {
-                bat "echo Deploying"
+                script {
+                    buildPipeline.deployApp()
+                }
             }
-        }
-    }
-
-    post {
-        failure {
-            echo "❌ Pipeline failed! Check the logs above."
         }
     }
 }
