@@ -7,7 +7,7 @@ pipeline {
         stage('📦 Build') {
             steps {
                 script {
-                    buildPipeline.buildApp("1.0.1")
+                    buildPipeline.buildApp("main")
                 }
             }
         }
