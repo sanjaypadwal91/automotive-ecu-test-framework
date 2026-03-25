@@ -1,3 +1,5 @@
+@Library('your-shared-library') _   // this must match the library name
+
 pipeline {
     agent any
 
@@ -5,8 +7,6 @@ pipeline {
         stage('📦 Build') {
             steps {
                 script {
-                    // This will work only if vars/buildPipeline.groovy exists
-                    echo "Testing if buildPipeline exists: ${this.hasProperty('buildPipeline')}"
                     buildPipeline.buildApp("1.0.1")
                 }
             }
