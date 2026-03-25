@@ -13,13 +13,13 @@ pipeline {
         }
 
         stage('🔧 Test') {
-            steps {
+            steps {('🔧 Test')
 
             }
         }
 
         stage('Deploy') {
-            steps {
+            steps {('Deploy')
 
             }
 
