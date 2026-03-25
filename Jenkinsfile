@@ -3,8 +3,6 @@ pipeline {
 
     tools {
         maven "Maven"
-        gradle
-        jdk
 
 }
     environment {
