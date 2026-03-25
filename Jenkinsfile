@@ -14,9 +14,11 @@ pipeline {
             steps {
                 echo "Building version ${MY_VERSION}"
                 bat "python  -m pip install --upgrade pip"
-                bat "pip install python"
                 bat "python --version"
                 bat "pip --version"
+                bat "pip install python"
+
+
             }
         }
 
