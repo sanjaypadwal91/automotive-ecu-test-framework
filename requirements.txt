@@ -9,7 +9,7 @@ pytest-xdist==3.5.0
 pytest-cov==4.1.0
 pytest-html==4.1.1
 pytest-timeout==2.2.0
-
+maven ==3.9
 # Automotive Specific
 python-can==4.3.0
 cantools==39.4.0
