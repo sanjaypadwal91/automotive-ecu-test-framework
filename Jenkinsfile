@@ -11,7 +11,6 @@ pipeline {
 
         stage('📦 Build') {
             steps {echo  "Buinding version $(MY_VERSION)"
-
             }
         }
 
