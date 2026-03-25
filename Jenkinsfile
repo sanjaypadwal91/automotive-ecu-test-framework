@@ -2,27 +2,45 @@ pipeline {
     agent any
 
     environment {
-        MY_VERSION = "1.0.1"
+        MY_VERSION = "1.0.2"
     }
 
     stages {
-        stage('📦 Build (Maven)') {
+        stage('📦 Build') {
             steps {
-                echo "Building version ${MY_VERSION}"
-                bat "mvn clean install"
+                script {
+                    buildPipeline.buildApp(MY_VERSION)
+                }
             }
         }
 
-        stage('🐍 Setup Python') {
-            steps {
-                bat "python --version"
-                bat "pip install -r requirements.txt"
+        stage('🧪 Tests (Parallel)') {
+            parallel {
+                stage('Python Tests') {
+                    steps {
+                        script {
+                            buildPipeline.runPythonTests()
+                        }
+                    }
+                }
+                stage('Maven Tests') {
+                    steps {
+                        script {
+                            buildPipeline.runMavenTests()
+                        }
+                    }
+                }
             }
         }
 
-        stage('🔧 Run Tests') {
+        stage('🚀 Deploy') {
+            when {
+                branch 'main'
+            }
             steps {
-                bat "python test_script.py"
+                script {
+                    buildPipeline.deployApp()
+                }
             }
         }
     }

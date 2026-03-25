@@ -3,12 +3,18 @@ def buildApp(version) {
     bat "mvn clean install"
 }
 
-def runTests() {
-    echo "Running tests"
+def runPythonTests() {
+    echo "Running Python tests"
+    bat "pip install -r requirements.txt"
+    bat "python test_script.py"
+}
+
+def runMavenTests() {
+    echo "Running Maven tests"
     bat "mvn test"
 }
 
 def deployApp() {
     echo "Deploying application"
-    bat "echo Deploy step here"
+    bat "echo Deploy step simulated"
 }
