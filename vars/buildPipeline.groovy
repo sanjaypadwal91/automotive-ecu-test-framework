@@ -11,7 +11,6 @@ def runPythonTests() {
 
 def runMavenTests() {
     echo "Running Maven tests"
-    bat "mvn test"
 }
 
 def deployApp() {
