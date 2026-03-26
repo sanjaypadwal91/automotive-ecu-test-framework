@@ -4,7 +4,7 @@ print("Running ECU test simulation...")
 result = True
 
 if result:
-    print("Test Passed ✅")
+    print("Test Passed")
 else:
-    print("Test Failed ❌")
+    print("Test Failed")
     exit(1)
