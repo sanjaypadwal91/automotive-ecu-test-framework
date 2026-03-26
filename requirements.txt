@@ -18,7 +18,7 @@ pymodbus==3.6.6
 
 # Hardware Simulation
 pyvisa==1.13.0
-pylabrad==0.1.5
+
 
 # Reporting
 allure-pytest==2.13.2
