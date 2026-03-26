@@ -6,7 +6,7 @@ def buildApp(version) {
 def runPythonTests() {
     echo "Running Python tests"
     bat "pip install -r requirements.txt"   // Install Python dependencies
-    bat "python test_script.py"             // Run Python tests
+    bat "python test_scripts.py"             // Run Python tests
 }
 
 def runMavenTests() {
