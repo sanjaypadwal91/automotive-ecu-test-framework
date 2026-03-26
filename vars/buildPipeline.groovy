@@ -1,6 +1,6 @@
 def buildApp(version) {
     echo "Building version ${version}"
-    bat "mvn clean install"        // Maven command, not pip
+      // Maven command, not pip
 }
 
 def runPythonTests() {
